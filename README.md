@@ -34,7 +34,7 @@ ohmconnect_event_track_key: "YOUR_TRACK_KEY"
 ```
 
 # How to get keys
-1. Login to [OhmConnect](https://login.ohmconnect.com/) in you are not already.
+1. Login to [OhmConnect](https://login.ohmconnect.com/) if you are not already.
 2. Open [https://login.ohmconnect.com/api/v2/upcoming_events](https://login.ohmconnect.com/api/v2/upcoming_events).
 3. Open your browser’s developer tools (right-click and select "Inspect", or press `F12`).
 4. Navigate to the "Network" tab.
