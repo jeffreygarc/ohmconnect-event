@@ -5,7 +5,19 @@ With this integration, you can access the scheduled start and end times of an up
 
 # Installation
 
-Copy the custom_components/ohmconnect-event folder and contents into your custom_components folder in Home Assistant.
+### Install via HACS (Recommended)
+
+1. Ensure HACS is installed in your Home Assistant setup.
+2. Go to HACS and add this repository to the list of custom repositories.
+3. Search for and install the "OhmConnect Event" integration from HACS.
+
+### Manual Installation
+
+1. Open the directory for your Home Assistant configuration (this is where the `configuration.yaml` file is located).
+2. Check if there is a `custom_components` folder. If it doesn't exist, create one.
+3. Inside the `custom_components` folder, create a new folder called `ohmconnect-event`.
+4. Download the `ohmconnect-event.zip` file from the "Latest Release" section of this repository.
+5. Extract the contents of the downloaded ZIP file into the `ohmconnect-event` folder you created.
 
 # Configuration
 In your configuration.yaml, add
