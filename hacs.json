@@ -1,3 +1,5 @@
 {
-    "name": "Ohmconnect Event"
+    "name": "Ohmconnect Event",
+    "zip_release": true,
+    "filename": "ohmconnect-event.zip"
 }
