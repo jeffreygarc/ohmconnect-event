@@ -1,0 +1,8 @@
+{
+  "domain": "ohmconnect-event",
+  "name": "OhmConnect Event",
+  "version": "0.0.1",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "requirements": ["requests"]
+}
