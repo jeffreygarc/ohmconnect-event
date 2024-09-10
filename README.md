@@ -1,7 +1,7 @@
 # Ohmconnect-event
 Get information about upcoming OhmHour events in Home Assistant.
 
-With this integration, you can access the scheduled start and end times of an upcoming OhmHour event, along with the total duration of the event.
+With this integration, you can access the scheduled start and end times of the next upcoming OhmHour event, along with the total duration of the event.
 
 # Installation
 
