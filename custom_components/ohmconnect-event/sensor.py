@@ -2,7 +2,7 @@ import requests
 import json
 import logging
 import voluptuous as vol
-from datetime import datetime
+from datetime import datetime, timedelta
 from operator import length_hint
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -16,6 +16,8 @@ DEFAULT_NAME = "OhmConnect Event"
 
 CONF_SESSION = "session"
 CONF_OHM_TRACK_KEY = "ohm_track_key"
+
+SCAN_INTERVAL = timedelta(minutes=15) 
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_SESSION): cv.string,
@@ -44,7 +46,7 @@ class OhmConnectEventSensor(Entity):
         self._duration = None
         self._session = session
         self._ohm_track_key = ohm_track_key
-        self._unique_id = "ohmconnect_next_event"  # Generate unique ID
+        self._unique_id = "ohmconnect_next_event"
         self.update()
 
     @property
@@ -87,25 +89,28 @@ class OhmConnectEventSensor(Entity):
             response = requests.get(api_url, cookies=cookies)
             data = json.loads(response.text)
 
-            ## Get the nearest event if there is more than one
+            # Check if data is empty
+            if not data:
+                _LOGGER.info("No upcoming OhmConnect events available.")
+                return  # Exit the method without updating state if no events
+
+            ## Get the index of the nearest event
             nearest_event = (length_hint(data) -1)
 
-            self._start_dttm = data[nearest_event]["start_dttm"]  # Ensure this is in ISO format
-            self._end_dttm = data[nearest_event]["end_dttm"]  # Ensure this is in ISO format
-            _LOGGER.debug(f"Fetched OhmConnect event: {data[0]}")
+            self._start_dttm = data[nearest_event]["start_dttm"]
+            self._end_dttm = data[nearest_event]["end_dttm"]
+            _LOGGER.debug(f"Fetched OhmConnect event: {data[nearest_event]}")
 
-            ## Calcualte duration
+            ## Calculate duration
             dt_start = datetime.fromisoformat(self._start_dttm)
             dt_end = datetime.fromisoformat(self._end_dttm)
             duration = dt_end - dt_start
 
             ## Format duration into string
-
             hours, remainder = divmod(duration.seconds, 3600)
             minutes, seconds = divmod(remainder, 60)
 
-            self._duration =  f"{hours:02}:{minutes:02}:{seconds:02}"
-
+            self._duration = f"{hours:02}:{minutes:02}:{seconds:02}"
 
         except Exception as e:
             _LOGGER.error(f"Error fetching data from OhmConnect: {e}")
